@@ -1,0 +1,8 @@
+{
+  "name": "HDTodayZ",
+  "description": "CloudStream extension for HDTodayZ movies site",
+  "manifestVersion": 1,
+  "pluginLists": [
+    "https://raw.githubusercontent.com/Hicham8367/hdtodayz/main/plugins.json"
+  ]
+}
