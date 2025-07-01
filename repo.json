@@ -1,8 +1,18 @@
 {
-  "name": "HDTodayZ",
-  "description": "CloudStream extension for HDTodayZ movies site",
-  "manifestVersion": 1,
-  "pluginLists": [
-    "https://raw.githubusercontent.com/Hicham8367/hdtodayz/main/plugins.json"
+  "author": "Hicham8367",
+  "version": 1,
+  "icon": "https://hdtodayz.to/favicon.ico",
+  "repository": "Hicham8367/HDTodayZ-CloudStream",
+  "plugins": [
+    {
+      "name": "HDTodayZ Netflix Style",
+      "id": "hdtodayz_netflix",
+      "version": 1,
+      "file": "hdtodayz_netflix.jar",
+      "depends": [],
+      "lang": "ar",
+      "type": "movie",
+      "description": "HDTodayZ.to with Netflix-like UI"
+    }
   ]
-}
+} 
