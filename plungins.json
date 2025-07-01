@@ -1,0 +1,8 @@
+{
+  "name": "HDTodayZ",
+  "version": "1.0",
+  "description": "HDTodayZ extension for CloudStream",
+  "main": "HDTodayZ.kt",
+  "className": "HDTodayZ",
+  "lang": "en"
+}
