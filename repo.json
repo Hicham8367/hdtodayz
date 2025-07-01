@@ -8,11 +8,11 @@
       "name": "HDTodayZ Netflix Style",
       "id": "hdtodayz_netflix",
       "version": 1,
-      "file": "hdtodayz_netflix.jar",
+      "file": "HDTodayZNetflixProvider.jar",
       "depends": [],
       "lang": "ar",
-      "type": "movie",
+      "type": "all",
       "description": "HDTodayZ.to with Netflix-like UI"
     }
   ]
-} 
+}
