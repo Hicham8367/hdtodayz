@@ -1,8 +1,11 @@
-{
-  "name": "HDTodayZ",
-  "version": "1.0",
-  "description": "HDTodayZ extension for CloudStream",
-  "main": "HDTodayZ.kt",
-  "className": "HDTodayZ",
-  "lang": "en"
-}
+[
+  {
+    "name": "HDTodayZ Netflix Style",
+    "file": "hdtodayz_netflix.jar",
+    "version": 1,
+    "description": "HDTodayZ.to provider with Netflix-like interface",
+    "id": "hdtodayz_netflix",
+    "lang": "ar",
+    "type": "movie"
+  }
+] 
