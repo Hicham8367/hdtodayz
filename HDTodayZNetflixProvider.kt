@@ -12,7 +12,6 @@ class HDTodayZNetflixProvider : MainAPI() {
     override val supportedTypes = setOf(TvType.Movie, TvType.TvSeries)
     override val useAutoLoadMore = true
 
-    // Netflix-style categories with horizontal scrolling
     override val mainPage = mainPageOf(
         "$mainUrl/movies" to "أفلام شائعة",
         "$mainUrl/tv-series" to "مسلسلات رائجة",
@@ -31,7 +30,6 @@ class HDTodayZNetflixProvider : MainAPI() {
         val tvType = if (href.contains("/tv-series/")) TvType.TvSeries else TvType.Movie
         val episode = this.selectFirst("div.tick-eps")?.text()?.trim()
 
-        // Netflix-style card
         return newAnimeSearchResponse(title, href, tvType) {
             this.posterUrl = posterUrl
             this.quality = quality
@@ -42,7 +40,6 @@ class HDTodayZNetflixProvider : MainAPI() {
         }
     }
 
-    // Netflix-style horizontal scrolling sections
     override suspend fun getMainPage(
         page: Int,
         request: MainPageRequest
@@ -51,7 +48,7 @@ class HDTodayZNetflixProvider : MainAPI() {
         val items = document.select("div.flw-item").mapNotNull {
             it.toSearchResult()
         }
-        
+
         return newHomePageResponse(
             listOf(
                 HomePageList(
@@ -65,13 +62,12 @@ class HDTodayZNetflixProvider : MainAPI() {
         )
     }
 
-    // Netflix-style details page with background
     override suspend fun load(url: String): LoadResponse? {
         val document = app.get(url).document
 
         val title = document.selectFirst("h2.heading-name")?.text()?.trim() ?: return null
         val poster = document.selectFirst("img.film-poster-img")?.attr("src")
-        val background = document.selectFirst("img.film-poster-img")?.attr("src")
+        val background = poster
         val tags = document.select("div.row-line:contains(Genre) a").map { it.text() }
         val year = document.selectFirst("div.row-line:contains(Release)")?.text()
             ?.substringAfter(":")?.trim()?.toIntOrNull()
@@ -85,7 +81,7 @@ class HDTodayZNetflixProvider : MainAPI() {
                 val episodeUrl = fixUrl(it.selectFirst("a")?.attr("href") ?: return@mapNotNull null)
                 Episode(episodeUrl, episode)
             }.reversed()
-            
+
             newTvSeriesLoadResponse(title, url, type, episodes) {
                 this.posterUrl = poster
                 this.backgroundPosterUrl = background
@@ -108,7 +104,6 @@ class HDTodayZNetflixProvider : MainAPI() {
         }
     }
 
-    // Netflix-style multiple quality options
     override suspend fun loadLinks(
         data: String,
         isCasting: Boolean,
@@ -119,31 +114,10 @@ class HDTodayZNetflixProvider : MainAPI() {
         document.select("div.play-video iframe").forEach { iframe ->
             val url = iframe.attr("src")
             if (url.isNotEmpty()) {
-                listOf(
-                    ExtractorLink(
-                        name,
-                        "جودة عالية 1080p",
-                        url,
-                        referer = mainUrl,
-                        quality = Qualities.P1080.value
-                    ),
-                    ExtractorLink(
-                        name,
-                        "جودة متوسطة 720p",
-                        url,
-                        referer = mainUrl,
-                        quality = Qualities.P720.value
-                    ),
-                    ExtractorLink(
-                        name,
-                        "جودة منخفضة 480p",
-                        url,
-                        referer = mainUrl,
-                        quality = Qualities.P480.value
-                    )
-                ).forEach(callback)
+                // 🔄 استخدم loadExtractor لتحميل الرابط الداخلي مباشرةً
+                loadExtractor(url, data, subtitleCallback, callback)
             }
         }
         return true
     }
-} 
+}
